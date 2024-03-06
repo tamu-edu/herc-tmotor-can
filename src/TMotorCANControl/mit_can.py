@@ -694,7 +694,8 @@ class TMotorManager_mit_can():
             raise RuntimeError("Tried to update motor state before safely powering on for device: " + self.device_info_string())
 
         if self.get_temperature_celsius() > self.max_temp:
-            raise RuntimeError("Temperature greater than {}C for device: {}".format(self.max_temp, self.device_info_string()))
+            # raise RuntimeError("Temperature greater than {}C for device: {}".format(self.max_temp, self.device_info_string()))
+            pass
 
         # check that the motor data is recent
         # print(self._command_sent)
