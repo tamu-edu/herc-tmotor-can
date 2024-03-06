@@ -13,8 +13,10 @@ with TMotorManager_servo_can(motor_type='AK80-9', motor_ID=0) as dev:
     
     loop = SoftRealtimeLoop(dt=0.01, report=True, fade=0.0)
     dev.set_zero_position()
-    dev.enter_position_control()
+    dev.enter_position_velocity_control()
     for t in loop:
         dev.position = np.sin(t) # rad/s
+        dev.velocity = 1
+        dev.acceleration = 0.5
         dev.update()
         print("\r" + str(dev),end='')
