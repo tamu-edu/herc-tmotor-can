@@ -6,12 +6,14 @@ from NeuroLocoMiddleware.SysID import Chirp
 from sys import path
 path.append("/home/pi/TMotorCANControl/src/")
 from TMotorCANControl.servo_can import TMotorManager_servo_can
+import time
 
 
 def chirp_demo(dev, amp=1.0, dt=0.001):
     print("Starting current chirp demo. Press ctrl+C to quit.")
-    chirp = Chirp(300, 200, True)
+    chirp = Chirp(50, 1, 3)
     dev.enter_current_control()
+    time.sleep(0.1)
 
     loop = SoftRealtimeLoop(dt = dt, report=True)
     for t in loop:

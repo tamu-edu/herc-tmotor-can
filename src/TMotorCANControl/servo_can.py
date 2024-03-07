@@ -471,7 +471,7 @@ class CAN_Manager_servo(object):
         """
         send_index = 0
         buffer=[]
-        self.buffer_append_int32(buffer, np.int32(pos * 1000000.0), send_index)
+        self.buffer_append_int32(buffer, np.int32(pos * 1000000.0))
         self.send_servo_message(controller_id|(Servo_Params['CAN_PACKET_ID']['CAN_PACKET_SET_POS'] << 8), buffer, send_index)
     
     #Set origin mode
@@ -865,7 +865,7 @@ class TMotorManager_servo_can():
         self._control_state = _TMotorManState_Servo.IDLE
 
     # used for either impedance or MIT mode to set output angle
-    def set_output_angle_radians(self, pos, vel, acc):
+    def set_output_angle_radians(self, pos, vel=0, acc=0):
         """
         Update the current command to the desired position, when in position or position-velocity mode.
         Note, this does not send a command, it updates the TMotorManager's saved command,
