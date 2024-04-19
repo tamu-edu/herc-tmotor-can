@@ -799,21 +799,21 @@ class TMotorManager_servo_can():
         Returns:
             The most recently updated output angle in radians
         """
-        return self._motor_state.position*self.rad_per_Eang
+        return self._motor_state.position*self.rad_per_Eang/Servo_Params[self.type]["GEAR_RATIO"]
 
     def get_output_velocity_radians_per_second(self):
         """
         Returns:
             The most recently updated output velocity in radians per second
         """
-        return self._motor_state.velocity*self.radps_per_ERPM
+        return self._motor_state.velocity*self.radps_per_ERPM/Servo_Params[self.type]["GEAR_RATIO"]
 
     def get_output_acceleration_radians_per_second_squared(self):
         """
         Returns:
             The most recently updated output acceleration in radians per second per second
         """
-        return self._motor_state.acceleration
+        return self._motor_state.acceleration/Servo_Params[self.type]["GEAR_RATIO"]
 
     def get_output_torque_newton_meters(self):
         """
