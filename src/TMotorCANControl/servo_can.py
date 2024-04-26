@@ -67,6 +67,7 @@ Servo_Params = {
             'GEAR_RATIO': 9.0, 
             'NUM_POLE_PAIRS': 21,
             'Use_derived_torque_constants': False, # true if you have a better model
+            'Encoder_Offset': 0.0
         },
         'CAN_PACKET_ID':{
 
@@ -627,6 +628,9 @@ class TMotorManager_servo_can():
         
         self._canman = CAN_Manager_servo()
         self._canman.add_motor(self)
+
+        self.encoder_offset = 0.0
+        self.encoder_ticker = 1
                
     def __enter__(self):
         """
@@ -799,8 +803,15 @@ class TMotorManager_servo_can():
         Returns:
             The most recently updated output angle in radians
         """
-        return self._motor_state.position*self.rad_per_Eang/Servo_Params[self.type]["GEAR_RATIO"]
-
+        # print(self.encoder_offset, self.encoder_ticker)
+        raw_output_angle = (self._motor_state.position*self.rad_per_Eang)/Servo_Params[self.type]["GEAR_RATIO"]
+        if raw_output_angle > self.encoder_ticker*5.0 or self.encoder_ticker*raw_output_angle < -5.0:
+            # self.set_zero_position()
+            self.encoder_offset =  raw_output_angle 
+            # self.encoder_ticker += 1
+            # print(self.encoder_offset, self.encoder_ticker)
+        return (self._motor_state.position*self.rad_per_Eang*self.encoder_ticker)/Servo_Params[self.type]["GEAR_RATIO"]
+ 
     def get_output_velocity_radians_per_second(self):
         """
         Returns:
@@ -984,6 +995,7 @@ class TMotorManager_servo_can():
         Returns:
             The most recently updated motor-side angle in rad.
         """
+
         return self._motor_state.position*self.rad_per_Eang*Servo_Params[self.type]["GEAR_RATIO"]
 
     def get_motor_velocity_radians_per_second(self):
