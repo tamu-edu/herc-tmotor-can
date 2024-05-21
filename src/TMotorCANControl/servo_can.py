@@ -14,7 +14,6 @@ from collections import namedtuple
 from math import isfinite
 import numpy as np
 
-# Angela was here.
 
 # Control mode contain {0,1,2,3,4,5,6,7} Seven eigenvalues correspond to seven control modes
 # respectively
