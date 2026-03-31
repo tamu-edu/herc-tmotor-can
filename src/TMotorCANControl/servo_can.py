@@ -506,9 +506,9 @@ class CAN_Manager_servo(object):
         send_index = 0
         send_index1 = 0
         buffer=[]
-        self.buffer_append_int32(buffer, (pos * 10000.0), send_index)
-        self.buffer_append_int16(buffer,spd, send_index1)
-        self.buffer_append_int16(buffer,RPA, send_index1)
+        self.buffer_append_int32(buffer, (pos * 10000.0))
+        self.buffer_append_int16(buffer,spd)
+        self.buffer_append_int16(buffer,RPA)
         self.send_servo_message(controller_id |(Servo_Params['CAN_PACKET_ID']['CAN_PACKET_SET_POS_SPD'] << 8), buffer, send_index)
 
     #* **************************END************************************************#
