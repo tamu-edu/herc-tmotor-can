@@ -11,7 +11,7 @@ Classifier: Operating System :: POSIX :: Linux
 Requires-Python: >=3.7
 Description-Content-Type: text/markdown
 Requires-Dist: numpy
-Requires-Dist: NeuroLocoMiddleware
+Requires-Dist: herc-exo-middleware
 Requires-Dist: python-can>=4.0.0
 Requires-Dist: pyserial>=3.5
 
